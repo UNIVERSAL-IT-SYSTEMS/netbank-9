@@ -1,0 +1,38 @@
+<div ng-controller="accountBalancesController">
+    <h1>Accounts</h1>
+
+    <table id="table_id" class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Balance</th>
+            <th>Currency</th>
+            <th>Open</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="account in accounts" ng-click="openAccount(account)">
+            <td>{{ account.id }}</td>
+            <td>{{ account.name }}</td>
+            <td>{{ account.balance }}</td>
+            <td>{{ account.currency }}</td>
+            <td>
+                <!--<button class="btn" ng-click="showHistory(account.id)"-->
+                <!--">-->
+                <!--<span class="glyphicon glyphicon-pencil"></span> Edit-->
+                <!--</button>-->
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Balance</th>
+            <th>Currency</th>
+            <th>Open</th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
