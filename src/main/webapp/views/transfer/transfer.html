@@ -1,13 +1,13 @@
 <div ng-controller="transferController">
     <div class="container">
-        <h2>Transfer</h2>
 
-        <div>
+        <div class="col-md-4 col-md-offset-4">
+            <h2>Transfer</h2>
             <div class="form-group">
                 <label for="sourceDropdown">Source account</label>
 
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                    <button class="btn btn-primary btn-block dropdown-toggle" type="button" data-toggle="dropdown"
                             id="sourceDropdown">
                         {{selectedSource.name || 'Select source account'}}<span class="caret"></span>
                     </button>
@@ -22,7 +22,7 @@
                 <label for="destinationDropdown">Destination account</label>
 
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                    <button class="btn btn-primary  btn-block dropdown-toggle" type="button" data-toggle="dropdown"
                             id="destinationDropdown">
                         {{selectedDestination.name || 'Select destination account'}}<span class="caret"></span>
                     </button>
