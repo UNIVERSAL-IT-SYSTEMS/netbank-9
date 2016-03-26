@@ -1,10 +1,16 @@
 package com.github.szberes.netbank.backend.account.management.jpa;
 
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-public class TransferEntity {
+public class TransactionEntity {
 
     @Id
     @GeneratedValue
@@ -23,14 +29,14 @@ public class TransferEntity {
     @Column(nullable = false)
     private Long amount;
 
-    public TransferEntity(AccountEntity sourceAccount, AccountEntity destinationAccount, Long amount) {
+    public TransactionEntity(AccountEntity sourceAccount, AccountEntity destinationAccount, Long amount) {
         date = new Date();
         this.sourceAccount = sourceAccount;
         this.destinationAccount = destinationAccount;
         this.amount = amount;
     }
 
-    public TransferEntity() {
+    public TransactionEntity() {
     }
 
     public AccountEntity getSourceAccount() {

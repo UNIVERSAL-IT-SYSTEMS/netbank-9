@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import com.github.szberes.netbank.backend.account.management.jpa.AccountEntity;
 import com.github.szberes.netbank.backend.account.management.jpa.AccountRepository;
 import com.github.szberes.netbank.backend.account.management.jpa.TransactionRepository;
-import com.github.szberes.netbank.backend.account.management.jpa.TransferEntity;
+import com.github.szberes.netbank.backend.account.management.jpa.TransactionEntity;
 
 @Component
 @Transactional
@@ -44,21 +44,21 @@ public class AccountTransactionManager {
             throw new IllegalArgumentException("User does not have enough credit "); // TODO bad request, precondition failed etc
         }
 
-        TransferEntity transferEntity = new TransferEntity(sourceAccountEntity, destinationAccountEntity, amount);
-        transactionRepository.save(transferEntity);
+        TransactionEntity transactionEntity = new TransactionEntity(sourceAccountEntity, destinationAccountEntity, amount);
+        transactionRepository.save(transactionEntity);
 
         sourceAccountEntity.setBalance(sourceAccountEntity.getBalance() - amount);
         destinationAccountEntity.setBalance(destinationAccountEntity.getBalance() + amount);
         accountRepository.save(Arrays.asList(sourceAccountEntity, destinationAccountEntity));
-        return transferEntity.getId();
+        return transactionEntity.getId();
     }
 
-    public List<TransferEntity> getAllTransactions(String ownerId, Long accountId) {
+    public List<TransactionEntity> getAllTransactions(String ownerId, Long accountId) {
         Assert.notNull(accountId, "The given account id must not be null!");
         AccountEntity accountEntity = accountRepository.findOne(accountId);
         assertUserOwnsAccount(ownerId, accountEntity);
 
-        ArrayList<TransferEntity> result = new ArrayList<>(accountEntity.getIncomingTransfers());
+        ArrayList<TransactionEntity> result = new ArrayList<>(accountEntity.getIncomingTransfers());
         result.addAll(accountEntity.getOutgoingTransfers());
         return result;
     }

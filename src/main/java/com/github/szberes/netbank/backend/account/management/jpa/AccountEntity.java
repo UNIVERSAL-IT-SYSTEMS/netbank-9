@@ -1,8 +1,13 @@
 package com.github.szberes.netbank.backend.account.management.jpa;
 
-import javax.persistence.*;
 import java.util.Currency;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class AccountEntity {
@@ -20,10 +25,10 @@ public class AccountEntity {
     private Currency currency;
 
     @OneToMany(mappedBy = "sourceAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TransferEntity> outgoingTransfers;
+    private List<TransactionEntity> outgoingTransfers;
 
     @OneToMany(mappedBy = "destinationAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TransferEntity> incomingTransfers;
+    private List<TransactionEntity> incomingTransfers;
 
     public AccountEntity(String ownerId, String accountName, Currency currency) {
         this.ownerId = ownerId;
@@ -67,28 +72,28 @@ public class AccountEntity {
         this.accountName = accountName;
     }
 
-    public List<TransferEntity> getOutgoingTransfers() {
+    public List<TransactionEntity> getOutgoingTransfers() {
         return outgoingTransfers;
     }
 
-    public void setOutgoingTransfers(List<TransferEntity> outgoingTransfers) {
+    public void setOutgoingTransfers(List<TransactionEntity> outgoingTransfers) {
         this.outgoingTransfers = outgoingTransfers;
     }
 
-    public List<TransferEntity> getIncomingTransfers() {
+    public List<TransactionEntity> getIncomingTransfers() {
         return incomingTransfers;
     }
 
-    public void setIncomingTransfers(List<TransferEntity> incomingTransfers) {
+    public void setIncomingTransfers(List<TransactionEntity> incomingTransfers) {
         this.incomingTransfers = incomingTransfers;
     }
 
-    public void addIncomingTransfer(TransferEntity transferEntity) {
-        incomingTransfers.add(transferEntity);
+    public void addIncomingTransfer(TransactionEntity transactionEntity) {
+        incomingTransfers.add(transactionEntity);
     }
 
-    public void addOutgoingTransfer(TransferEntity transferEntity) {
-        outgoingTransfers.add(transferEntity);
+    public void addOutgoingTransfer(TransactionEntity transactionEntity) {
+        outgoingTransfers.add(transactionEntity);
     }
 
     public Currency getCurrency() {

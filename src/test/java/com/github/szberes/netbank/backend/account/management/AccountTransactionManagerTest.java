@@ -3,10 +3,6 @@ package com.github.szberes.netbank.backend.account.management;
 import java.util.Currency;
 import java.util.List;
 
-import com.github.szberes.netbank.NetbankApplication;
-import com.github.szberes.netbank.backend.account.management.jpa.AccountEntity;
-import com.github.szberes.netbank.backend.account.management.jpa.AccountRepository;
-import com.github.szberes.netbank.backend.account.management.jpa.TransferEntity;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +12,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import com.github.szberes.netbank.NetbankApplication;
+import com.github.szberes.netbank.backend.account.management.jpa.AccountEntity;
+import com.github.szberes.netbank.backend.account.management.jpa.AccountRepository;
+import com.github.szberes.netbank.backend.account.management.jpa.TransactionEntity;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.hamcrest.Matchers.empty;
@@ -78,16 +79,16 @@ public class AccountTransactionManagerTest {
 
         accountTransactionManager.createNewTransaction("user1", firstAccount, secondAccount, 100L);
 
-        List<TransferEntity> firstAccountTransactions = accountTransactionManager.getAllTransactions("user1", firstAccount);
+        List<TransactionEntity> firstAccountTransactions = accountTransactionManager.getAllTransactions("user1", firstAccount);
         assertThat(firstAccountTransactions, hasSize(1));
-        TransferEntity firstAccountTransaction = firstAccountTransactions.get(0);
+        TransactionEntity firstAccountTransaction = firstAccountTransactions.get(0);
         assertEquals(firstAccount, firstAccountTransaction.getSourceAccount().getId());
         assertEquals(secondAccount, firstAccountTransaction.getDestinationAccount().getId());
         assertThat(firstAccountTransaction.getAmount(), equalTo(100L));
 
-        List<TransferEntity> secondAccountTransactions = accountTransactionManager.getAllTransactions("user2", secondAccount);
+        List<TransactionEntity> secondAccountTransactions = accountTransactionManager.getAllTransactions("user2", secondAccount);
         assertThat(secondAccountTransactions, hasSize(1));
-        TransferEntity secondAccountTransaction = secondAccountTransactions.get(0);
+        TransactionEntity secondAccountTransaction = secondAccountTransactions.get(0);
         assertEquals(firstAccount, secondAccountTransaction.getSourceAccount().getId());
         assertEquals(secondAccount, secondAccountTransaction.getDestinationAccount().getId());
         assertThat(secondAccountTransaction.getAmount(), equalTo(100L));
@@ -113,7 +114,7 @@ public class AccountTransactionManagerTest {
         Long secondAccount = createAccount("user2", 500);
 
         accountTransactionManager.createNewTransaction("user1", firstAccount, secondAccount, 100L);
-        List<TransferEntity> firstAccountTransactions = accountTransactionManager.getAllTransactions("user1", firstAccount);
+        List<TransactionEntity> firstAccountTransactions = accountTransactionManager.getAllTransactions("user1", firstAccount);
         assertEquals(firstAccount, firstAccountTransactions.get(0).getSourceAccount().getId());
         assertEquals(secondAccount, firstAccountTransactions.get(0).getDestinationAccount().getId());
     }

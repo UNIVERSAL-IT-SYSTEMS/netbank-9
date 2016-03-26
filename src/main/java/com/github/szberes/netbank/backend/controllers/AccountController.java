@@ -17,7 +17,7 @@ import com.github.szberes.netbank.backend.account.management.AccountHeader;
 import com.github.szberes.netbank.backend.account.management.AccountTransactionManager;
 import com.github.szberes.netbank.backend.account.management.jpa.AccountEntity;
 import com.github.szberes.netbank.backend.account.management.jpa.AccountRepository;
-import com.github.szberes.netbank.backend.account.management.jpa.TransferEntity;
+import com.github.szberes.netbank.backend.account.management.jpa.TransactionEntity;
 
 @RestController
 @RequestMapping("/backend/accounts")
@@ -47,16 +47,27 @@ public class AccountController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{accountId}/transactions")
     public List<RestTransaction> getHistory(@PathVariable Long accountId, Principal principal) {
-        List<TransferEntity> transactions = accountTransactionManager.getAllTransactions(principal.getName(), accountId);
+        List<TransactionEntity> transactions = accountTransactionManager.getAllTransactions(principal.getName(), accountId);
         return transactions.stream().map(transferEntityRestTransactionConverter::convert).collect(Collectors.toList());
     }
 
     @PostConstruct
     public void initData() {
-        AccountEntity admin = new AccountEntity("admin", "My first account", Currency.getInstance("EUR"));
-        admin.setBalance(1000L);
-        accountRepository.save(admin);
-        accountRepository.save(new AccountEntity("admin", "My second account", Currency.getInstance("HUF")));
-        accountRepository.save(new AccountEntity("admin", "My third account", Currency.getInstance("EUR")));
+        Currency eur = Currency.getInstance("EUR");
+        Currency huf = Currency.getInstance("HUF");
+
+        AccountEntity eurAccountOfAdmin = new AccountEntity("admin", "My first account", eur);
+        eurAccountOfAdmin.setBalance(1000L);
+        accountRepository.save(eurAccountOfAdmin);
+        AccountEntity hufAccountOfAdmin = new AccountEntity("admin", "My second account", huf);
+        hufAccountOfAdmin.setBalance(5000L);
+        accountRepository.save(hufAccountOfAdmin);
+        accountRepository.save(new AccountEntity("admin", "My third account", eur));
+        accountRepository.save(new AccountEntity("admin", "My fourth account", huf));
+
+        AccountEntity eurAccountOfUser = new AccountEntity("user", "First", eur);
+        eurAccountOfUser.setBalance(500L);
+        accountRepository.save(eurAccountOfUser);
+        accountRepository.save(new AccountEntity("user", "Second", eur));
     }
 }

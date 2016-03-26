@@ -1,21 +1,22 @@
 package com.github.szberes.netbank.backend.controllers;
 
-import com.github.szberes.netbank.backend.account.management.jpa.TransferEntity;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import com.github.szberes.netbank.backend.account.management.jpa.TransactionEntity;
+
 @Component
-public class TransactionEntityToRestTransactionConverter implements Converter<TransferEntity, RestTransaction> {
+public class TransactionEntityToRestTransactionConverter implements Converter<TransactionEntity, RestTransaction> {
     @Override
-    public RestTransaction convert(TransferEntity transferEntity) {
+    public RestTransaction convert(TransactionEntity transactionEntity) {
         RestTransaction restTransaction = new RestTransaction();
-        restTransaction.setId(transferEntity.getId());
-        restTransaction.setDate(transferEntity.getDate());
-        restTransaction.setAmount(transferEntity.getAmount());
-        restTransaction.setDestinationAccountId(transferEntity.getDestinationAccount().getId());
-        restTransaction.setDestinationAccountOwner(transferEntity.getDestinationAccount().getOwnerId());
-        restTransaction.setSourceAccountId(transferEntity.getSourceAccount().getId());
-        restTransaction.setSourceAccountOwner(transferEntity.getSourceAccount().getOwnerId());
+        restTransaction.setId(transactionEntity.getId());
+        restTransaction.setDate(transactionEntity.getDate());
+        restTransaction.setAmount(transactionEntity.getAmount());
+        restTransaction.setDestinationAccountId(transactionEntity.getDestinationAccount().getId());
+        restTransaction.setDestinationAccountOwner(transactionEntity.getDestinationAccount().getOwnerId());
+        restTransaction.setSourceAccountId(transactionEntity.getSourceAccount().getId());
+        restTransaction.setSourceAccountOwner(transactionEntity.getSourceAccount().getOwnerId());
         return restTransaction;
     }
 }
