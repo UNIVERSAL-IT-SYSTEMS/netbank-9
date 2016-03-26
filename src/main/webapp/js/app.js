@@ -21,10 +21,10 @@ angular.module('myApp', [
     }])
     .service('AccountService', function ($http) {
         this.accounts = function (successHandler, errorHandler) {
-            $http.get('/backend/accounts').then(successHandler, errorHandler);
+            $http.get('backend/accounts').then(successHandler, errorHandler);
         };
         this.accountHistory = function (accountId, successHandler, errorHandler) {
-            $http.get('/backend/accounts/' + accountId + '/transactions').then(successHandler, errorHandler);
+            $http.get('backend/accounts/' + accountId + '/transactions').then(successHandler, errorHandler);
         };
         this.submitTransaction = function (sourceAccountId, destinationAccountId, amount, successHandler, errorHadler) {
             var data = {
@@ -33,7 +33,7 @@ angular.module('myApp', [
                 amount: amount
             };
             var config = {xsrfHeaderName: 'X-CSRF-TOKEN', xsrfCookieName: 'XSRF-TOKEN'};
-            $http.post('/backend/accounts/' + sourceAccountId + '/transactions', data, config).then(successHandler, errorHadler);
+            $http.post('backend/accounts/' + sourceAccountId + '/transactions', data, config).then(successHandler, errorHadler);
         }
 
     }).controller('navBarController', ['$scope', '$location', 'AccountService', 'AlertService', 'UserService',
@@ -69,7 +69,7 @@ angular.module('myApp', [
     })
     .service('UserService', function ($http) {
         this.getCurrentUserId = function (successHandler, errorHandler) {
-            $http.get('/backend/users/me').then(successHandler, errorHandler);
+            $http.get('backend/users/me').then(successHandler, errorHandler);
         }
     });
 
