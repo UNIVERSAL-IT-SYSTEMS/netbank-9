@@ -1,18 +1,23 @@
 package com.github.szberes.netbank.backend.controllers;
 
-import javax.annotation.PostConstruct;
 import java.security.Principal;
 import java.util.Currency;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.github.szberes.netbank.backend.account.management.AccountHeader;
 import com.github.szberes.netbank.backend.account.management.AccountTransactionManager;
 import com.github.szberes.netbank.backend.account.management.jpa.AccountEntity;
 import com.github.szberes.netbank.backend.account.management.jpa.AccountRepository;
 import com.github.szberes.netbank.backend.account.management.jpa.TransferEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/backend/accounts")
@@ -34,9 +39,9 @@ public class AccountController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/{accountId}/transactions")
-    public void newTransaction(@RequestBody RestTransactionRequest restTransactionRequest, Principal principal) {
+    public Long newTransaction(@RequestBody RestTransactionRequest restTransactionRequest, Principal principal) {
 
-        accountTransactionManager.createNewTransaction(principal.getName(), restTransactionRequest.getSourceAccountId(),
+        return accountTransactionManager.createNewTransaction(principal.getName(), restTransactionRequest.getSourceAccountId(),
                 restTransactionRequest.getDestinationAccountId(), restTransactionRequest.getAmount());
     }
 
