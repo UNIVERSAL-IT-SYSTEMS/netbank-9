@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -137,6 +138,13 @@ public class AccountTransactionManagerTest {
         assertThatThrownBy(() -> accountTransactionManager.createNewTransaction("user1", firstAccount, secondAccount, -100L))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Amount should be greater than zero");
+    }
+
+    @Test
+    public void testCreateAccountsWithSameName() throws Exception {
+        createAccount("user1", 1000, "EUR");
+        assertThatThrownBy(() -> createAccount("user1", 500, "EUR"))
+                .isInstanceOf(DataIntegrityViolationException.class);
     }
 
     private long createAccount(String ownerId, long initialBalance, String currencyCode) {
