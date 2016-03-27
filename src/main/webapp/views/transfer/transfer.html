@@ -8,7 +8,8 @@
 
                 <div class="dropdown">
                     <button class="btn btn-primary btn-block dropdown-toggle" type="button" data-toggle="dropdown"
-                            id="sourceDropdown">{{selectedSourceHeader || 'Select source account'}}<span class="caret"></span>
+                            id="sourceDropdown">{{selectedSourceHeader || 'Select source account'}}<span
+                            class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li ng-repeat="account in accounts">
@@ -22,7 +23,8 @@
 
                 <div class="dropdown">
                     <button class="btn btn-primary  btn-block dropdown-toggle" type="button" data-toggle="dropdown"
-                            id="destinationDropdown">{{selectedDestinationHeader || 'Select destination account'}}<span class="caret"></span>
+                            id="destinationDropdown">{{selectedDestinationHeader || 'Select destination account'}}<span
+                            class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li ng-repeat="account in possibleDestinationAccounts">
@@ -33,19 +35,22 @@
             </div>
 
             </br>
-            <div class="input-group">
-                <span class="input-group-addon">{{selectedSource.currency || '?'}}</span>
-                <input type="text" id="amount" class="form-control" ng-model="selectedAmount" ng-change="filterSelectedAmount()">
+            <div class="form-group">
+                <div class="input-group" ng-class="{'has-error' : !amountValid}">
+                    <span class="input-group-addon">{{selectedSource.currency || '?'}}</span>
+                    <input type="text" id="amount" class="form-control" ng-model="selectedAmount"
+                           ng-change="filterSelectedAmount()">
+                </div>
+                <label class="help-block text-danger" for="amount" ng-show="!amountValid && selectedAmount > 0">Account balance exceeded </label>
             </div>
             </br>
 
             <div class="form-group">
                 <input type="button" id="submitButton" class="form-control btn btn-primary"
                        ng-click="submitTransaction()" value="Submit"
-                       ng-disabled="!selectedSource || !selectedDestination || !selectedAmount">
+                       ng-disabled="!formValid">
             </div>
 
         </div>
     </div>
-    <!--</li>-->
 </div>

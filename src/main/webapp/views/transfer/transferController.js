@@ -15,6 +15,14 @@ angular.module('myApp.transfer', ['ngRoute'])
             $scope.selectedSource = null;
             $scope.selectedDestination = null;
             $scope.selectedAmount = 0;
+            $scope.formValid = false;
+            $scope.amountValid = true;
+
+            function validate() {
+                var accountsSelected = $scope.selectedSource != null && $scope.selectedDestination != null;
+                $scope.amountValid = !accountsSelected || (accountsSelected && ($scope.selectedAmount != 0) && ($scope.selectedSource.balance >= $scope.selectedAmount));
+                $scope.formValid  = accountsSelected && $scope.amountValid;
+            }
 
             $scope.selectSource = function (account) {
                 $scope.selectedSource = account;
@@ -26,16 +34,17 @@ angular.module('myApp.transfer', ['ngRoute'])
                 });
                 $scope.selectedDestination = null;
                 $scope.setSelectedSourceHeader();
+                validate();
             };
 
 
             $scope.selectDestination = function (account) {
                 $scope.selectedDestination = account;
                 $scope.setSelectedDestinationHeader();
+                validate();
             };
 
             $scope.submitTransaction = function() {
-                // TODO check if amount is less then the balance of the account
                 AccountService.submitTransaction($scope.selectedSource.id, $scope.selectedDestination.id, $scope.selectedAmount, function() {
                     $location.path("/accounts/" + $scope.selectedSource.id);
                     AlertService.showSuccess("Transaction finished!");
@@ -45,7 +54,8 @@ angular.module('myApp.transfer', ['ngRoute'])
             };
 
             $scope.filterSelectedAmount = function() {
-                $scope.selectedAmount = $scope.selectedAmount.replace(/[^0-9]/g, '')
+                $scope.selectedAmount = $scope.selectedAmount.replace(/[^0-9]/g, '');
+                validate();
             };
 
 
