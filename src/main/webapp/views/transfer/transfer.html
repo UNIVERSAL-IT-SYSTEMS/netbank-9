@@ -8,8 +8,7 @@
 
                 <div class="dropdown">
                     <button class="btn btn-primary btn-block dropdown-toggle" type="button" data-toggle="dropdown"
-                            id="sourceDropdown">
-                        {{selectedSource.name || 'Select source account'}}<span class="caret"></span>
+                            id="sourceDropdown">{{selectedSourceHeader || 'Select source account'}}<span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li ng-repeat="account in accounts">
@@ -23,8 +22,7 @@
 
                 <div class="dropdown">
                     <button class="btn btn-primary  btn-block dropdown-toggle" type="button" data-toggle="dropdown"
-                            id="destinationDropdown">
-                        {{selectedDestination.name || 'Select destination account'}}<span class="caret"></span>
+                            id="destinationDropdown">{{selectedDestinationHeader || 'Select destination account'}}<span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li ng-repeat="account in possibleDestinationAccounts">

@@ -2,8 +2,8 @@
 
 angular.module('myApp.transfer', ['ngRoute'])
 
-    .controller('transferController', ['$scope', '$log', '$location', 'AccountService', 'AlertService',
-        function ($scope, $log, $location, AccountService, AlertService) {
+    .controller('transferController', ['$scope', '$location', 'AccountService', 'AlertService',
+        function ($scope, $location, AccountService, AlertService) {
             AccountService.accounts(function (response) {
                 $scope.accounts = response.data;
                 $scope.possibleDestinationAccounts = response.data;
@@ -18,7 +18,6 @@ angular.module('myApp.transfer', ['ngRoute'])
 
             $scope.selectSource = function (account) {
                 $scope.selectedSource = account;
-                $log.log('Selected: ' + account);
                 $scope.possibleDestinationAccounts = [];
                 angular.forEach($scope.accounts, function(item) {
                     if ((!(item.id === account.id)) && (item.currency === account.currency)) {
@@ -26,12 +25,13 @@ angular.module('myApp.transfer', ['ngRoute'])
                     }
                 });
                 $scope.selectedDestination = null;
+                $scope.setSelectedSourceHeader();
             };
 
 
             $scope.selectDestination = function (account) {
                 $scope.selectedDestination = account;
-                $log.log('Selected: ' + account);
+                $scope.setSelectedDestinationHeader();
             };
 
             $scope.submitTransaction = function() {
@@ -46,6 +46,15 @@ angular.module('myApp.transfer', ['ngRoute'])
 
             $scope.filterSelectedAmount = function() {
                 $scope.selectedAmount = $scope.selectedAmount.replace(/[^0-9]/g, '')
-            }
+            };
+
+
+            $scope.setSelectedSourceHeader = function () {
+                $scope.selectedSourceHeader  = $scope.selectedSource.name + ' (' + $scope.selectedSource.balance + ' ' + $scope.selectedSource.currency + ')';
+            };
+
+            $scope.setSelectedDestinationHeader = function () {
+                $scope.selectedDestinationHeader  = $scope.selectedDestination.name + ' (' + $scope.selectedDestination.balance + ' ' + $scope.selectedDestination.currency + ')';
+            };
 
         }]);
