@@ -66,6 +66,7 @@ public class AccountTransactionManager {
     }
 
     public AccountHeader getAccountHeader(String ownerId, Long accountId) {
+        Assert.notNull(accountId, "The given account id must not be null!");
         AccountEntity accountEntity = accountRepository.findOne(accountId);
 
         Assert.notNull(accountEntity, "Cannot find account");

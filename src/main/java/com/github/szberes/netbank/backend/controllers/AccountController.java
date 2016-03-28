@@ -39,6 +39,11 @@ public class AccountController {
                 .map(AccountHeader::fromEntity).collect(Collectors.toList());
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/{accountId}")
+    public AccountHeader getAccount(@PathVariable Long accountId, Principal principal) {
+        return accountTransactionManager.getAccountHeader(principal.getName(), accountId);
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/{accountId}/transactions")
     public Long newTransaction(@RequestBody @Valid RestTransactionRequest restTransactionRequest, Principal principal) {
 

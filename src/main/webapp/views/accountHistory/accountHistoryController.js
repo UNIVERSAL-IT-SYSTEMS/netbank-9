@@ -12,6 +12,13 @@ angular.module('myApp.accountHistory', ['ngRoute'])
                 }, function () {
                     AlertService.showDanger('Error while loading accounts');
                 });
+            AccountService.accountHeader(
+                $routeParams.id,
+                function (response) {
+                    $scope.account = response.data;
+                }, function () {
+                    AlertService.showDanger('Error while loading accounts');
+                });
 
             $scope.getGlyphType = function(sourceId) {
                 return 'glyphicon ' + ($scope.accountId == sourceId ? 'glyphicon-minus' :'glyphicon-plus');

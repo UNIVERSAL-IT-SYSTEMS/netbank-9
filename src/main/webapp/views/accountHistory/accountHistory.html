@@ -1,38 +1,68 @@
 <div>
     <h2><span class="glyphicon glyphicon-time"></span> Account history</h2>
-    <table id="table_id" class="table table-striped">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Date</th>
-            <th>Source account id</th>
-            <th>Source account owner</th>
-            <th>Destination account id</th>
-            <th>Destination account owner</th>
-            <th>Amount</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="transaction in transactions">
-            <td>{{ transaction.id }}</td>
-            <td>{{ transaction.date | date : 'yyyy.MM.dd H:m:s' }}</td>
-            <td>{{ transaction.sourceAccountId }}</td>
-            <td>{{ transaction.sourceAccountOwner }}</td>
-            <td>{{ transaction.destinationAccountId }}</td>
-            <td>{{ transaction.destinationAccountOwner }}</td>
-            <td><span ng-class=" getGlyphType(transaction.sourceAccountId) "></span> {{ transaction.amount }}</td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <th>Id</th>
-            <th>Date</th>
-            <th>Source account id</th>
-            <th>Source account owner</th>
-            <th>Destination account id</th>
-            <th>Destination account owner</th>
-            <th>Amount</th>
-        </tr>
-        </tfoot>
-    </table>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Account details</div>
+                <div class="panel-body">
+                    <table class="table table-condensed table-borderless">
+                        <tr>
+                            <td><strong>Account id</strong></td>
+                            <td>{{account.id}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Account Name</strong></td>
+                            <td>{{account.name}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Account Balance</strong></td>
+                            <td>{{account.balance}} {{account.currency}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Transactions</div>
+        <div class="panel-body">
+            <table id="table_id" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Source account id</th>
+                    <th>Source account owner</th>
+                    <th>Destination account id</th>
+                    <th>Destination account owner</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="transaction in transactions">
+                    <td>{{ transaction.id }}</td>
+                    <td>{{ transaction.date | date : 'yyyy.MM.dd H:m:s' }}</td>
+                    <td>{{ transaction.sourceAccountId }}</td>
+                    <td>{{ transaction.sourceAccountOwner }}</td>
+                    <td>{{ transaction.destinationAccountId }}</td>
+                    <td>{{ transaction.destinationAccountOwner }}</td>
+                    <td><span ng-class=" getGlyphType(transaction.sourceAccountId) "></span> {{ transaction.amount }}
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Source account id</th>
+                    <th>Source account owner</th>
+                    <th>Destination account id</th>
+                    <th>Destination account owner</th>
+                    <th>Amount</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
 </div>

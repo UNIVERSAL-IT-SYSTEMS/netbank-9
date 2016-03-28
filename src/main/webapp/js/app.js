@@ -22,6 +22,9 @@ angular.module('myApp', [
         this.accounts = function (successHandler, errorHandler) {
             $http.get('backend/accounts').then(successHandler, errorHandler);
         };
+        this.accountHeader = function (accountId, successHandler, errorHandler) {
+            $http.get('backend/accounts/' + accountId).then(successHandler, errorHandler);
+        };
         this.accountHistory = function (accountId, successHandler, errorHandler) {
             $http.get('backend/accounts/' + accountId + '/transactions').then(successHandler, errorHandler);
         };
