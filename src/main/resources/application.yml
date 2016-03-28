@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:test
+  jpa:
+    generate-ddl: false
+    hibernate.ddl-auto: validate
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+server.port: 8081
+
+---
+
+spring:
+  profiles: postgres
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/netbank
+    username: netbank
+    password: netbank

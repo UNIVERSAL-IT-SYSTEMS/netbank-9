@@ -58,18 +58,26 @@ public class AccountController {
         Currency huf = Currency.getInstance("HUF");
 
         String adminId = "admin";
-        AccountEntity eurAccountOfAdmin = new AccountEntity(adminId, "My first account", eur);
-        eurAccountOfAdmin.setBalance(1000L);
-        accountRepository.save(eurAccountOfAdmin);
-        AccountEntity hufAccountOfAdmin = new AccountEntity(adminId, "My second account", huf);
-        hufAccountOfAdmin.setBalance(5000L);
-        accountRepository.save(hufAccountOfAdmin);
-        accountRepository.save(new AccountEntity(adminId, "My third account", eur));
-        accountRepository.save(new AccountEntity(adminId, "My fourth account", huf));
+        addAccountIfNotExists(adminId, "My first account", 1000L, eur);
+        addAccountIfNotExists(adminId, "My second account", 5000L, huf);
+        addAccountIfNotExists(adminId, "My third account", eur);
+        addAccountIfNotExists(adminId, "My fourth account", huf);
 
-        AccountEntity eurAccountOfUser = new AccountEntity("user", "First", eur);
-        eurAccountOfUser.setBalance(500L);
-        accountRepository.save(eurAccountOfUser);
-        accountRepository.save(new AccountEntity("user", "Second", eur));
+        addAccountIfNotExists("user", "First", 500L, eur);
+        addAccountIfNotExists("user", "Second", eur);
+    }
+
+    private void addAccountIfNotExists(String ownerId, String accountName, Currency currency) {
+        addAccountIfNotExists(ownerId, accountName, 0L, currency);
+    }
+
+    private void addAccountIfNotExists(String ownerId, String accountName, long balance, Currency eur) {
+        AccountEntity account = accountRepository.findAccountByOwnerIdAndAccountName(ownerId, accountName);
+        if (account != null) {
+            return;
+        }
+        AccountEntity eurAccountOfAdmin = new AccountEntity(ownerId, accountName, eur);
+        eurAccountOfAdmin.setBalance(balance);
+        accountRepository.save(eurAccountOfAdmin);
     }
 }

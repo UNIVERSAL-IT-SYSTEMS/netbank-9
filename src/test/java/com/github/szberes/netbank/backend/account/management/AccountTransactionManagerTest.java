@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -28,7 +27,6 @@ import static org.junit.Assert.assertThat;
 
 @IntegrationTest
 @ContextConfiguration(classes = NetbankApplication.class)
-@TestPropertySource("/application.properties")
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AccountTransactionManagerTest {

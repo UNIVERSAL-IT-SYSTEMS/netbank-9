@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface AccountRepository extends CrudRepository<AccountEntity, Long> {
 
     List<AccountEntity> findAccountByOwnerId(String ownerId);
+
+    AccountEntity findAccountByOwnerIdAndAccountName(String ownerId, String accountName);
 }
