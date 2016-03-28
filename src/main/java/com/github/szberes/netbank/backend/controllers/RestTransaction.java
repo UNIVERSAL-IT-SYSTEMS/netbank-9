@@ -13,6 +13,7 @@ public class RestTransaction {
     private Long amount;
 
     public RestTransaction() {
+        // For JSON
     }
 
     public Long getSourceAccountId() {

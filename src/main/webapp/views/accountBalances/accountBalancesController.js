@@ -6,11 +6,11 @@ angular.module('myApp.accountBalances', ['ngRoute'])
         function ($scope, $location, AccountService, AlertService) {
             AccountService.accounts(function (response) {
                 $scope.accounts = response.data;
-            }, function (response) {
+            }, function () {
                 AlertService.showDanger('Error while loading accounts!');
             });
 
             $scope.openAccount = function (account) {
                 $location.path('/accounts/' + account.id);
-            }
+            };
         }]);

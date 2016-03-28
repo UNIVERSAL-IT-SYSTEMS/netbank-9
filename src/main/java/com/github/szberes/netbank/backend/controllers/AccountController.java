@@ -57,14 +57,15 @@ public class AccountController {
         Currency eur = Currency.getInstance("EUR");
         Currency huf = Currency.getInstance("HUF");
 
-        AccountEntity eurAccountOfAdmin = new AccountEntity("admin", "My first account", eur);
+        String adminId = "admin";
+        AccountEntity eurAccountOfAdmin = new AccountEntity(adminId, "My first account", eur);
         eurAccountOfAdmin.setBalance(1000L);
         accountRepository.save(eurAccountOfAdmin);
-        AccountEntity hufAccountOfAdmin = new AccountEntity("admin", "My second account", huf);
+        AccountEntity hufAccountOfAdmin = new AccountEntity(adminId, "My second account", huf);
         hufAccountOfAdmin.setBalance(5000L);
         accountRepository.save(hufAccountOfAdmin);
-        accountRepository.save(new AccountEntity("admin", "My third account", eur));
-        accountRepository.save(new AccountEntity("admin", "My fourth account", huf));
+        accountRepository.save(new AccountEntity(adminId, "My third account", eur));
+        accountRepository.save(new AccountEntity(adminId, "My fourth account", huf));
 
         AccountEntity eurAccountOfUser = new AccountEntity("user", "First", eur);
         eurAccountOfUser.setBalance(500L);

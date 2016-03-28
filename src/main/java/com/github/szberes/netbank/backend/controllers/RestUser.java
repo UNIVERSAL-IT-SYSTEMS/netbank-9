@@ -3,9 +3,6 @@ package com.github.szberes.netbank.backend.controllers;
 public class RestUser {
     private String id;
 
-    public RestUser() {
-    }
-
     public RestUser(String id) {
         this.id = id;
     }

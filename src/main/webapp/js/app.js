@@ -6,7 +6,7 @@ angular.module('myApp', [
     'myApp.accountHistory',
     'myApp.transfer'
 ]).
-    config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+    config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/accountBalances', {
             templateUrl: 'views/accountBalances/accountBalances.html',
             controller: 'accountBalancesController'
@@ -17,7 +17,6 @@ angular.module('myApp', [
             templateUrl: 'views/transfer/transfer.html',
             controller: 'transferController'
         }).otherwise({redirectTo: '/accountBalances'});
-        //$locationProvider.html5Mode(true);
     }])
     .service('AccountService', function ($http) {
         this.accounts = function (successHandler, errorHandler) {
@@ -34,18 +33,17 @@ angular.module('myApp', [
             };
             var config = {xsrfHeaderName: 'X-CSRF-TOKEN', xsrfCookieName: 'XSRF-TOKEN'};
             $http.post('backend/accounts/' + sourceAccountId + '/transactions', data, config).then(successHandler, errorHadler);
-        }
-
+        };
     }).controller('navBarController', ['$scope', '$location', '$window', 'AccountService', 'AlertService', 'UserService',
         function ($scope, $location, $window, AccountService, AlertService, UserService) {
             AccountService.accounts(function (response) {
                 $scope.accounts = response.data;
-            }, function (response) {
+            }, function () {
                 AlertService.showDanger('Error while loading accounts!');
             });
             UserService.getCurrentUserId(function (response) {
                 $scope.currentUserId = response.data.id;
-            }, function (response) {
+            }, function () {
                 AlertService.showDanger('Error while loading the users!');
             });
             $scope.isActive = function (viewLocation) {
@@ -71,11 +69,11 @@ angular.module('myApp', [
         };
         this.showSuccess = function (message) {
             this.showAlert('alert-success', message);
-        }
+        };
     })
     .service('UserService', function ($http) {
         this.getCurrentUserId = function (successHandler, errorHandler) {
             $http.get('backend/users/me').then(successHandler, errorHandler);
-        }
+        };
     });
 

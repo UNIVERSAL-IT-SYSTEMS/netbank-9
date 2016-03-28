@@ -33,14 +33,15 @@ public class AccountEntity {
     @OneToMany(mappedBy = "destinationAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TransactionEntity> incomingTransfers;
 
+    public AccountEntity() {
+        // For JPA
+    }
+
     public AccountEntity(String ownerId, String accountName, Currency currency) {
         this.ownerId = ownerId;
         this.accountName = accountName;
         this.currency = currency;
         this.balance = 0L;
-    }
-
-    public AccountEntity() {
     }
 
     public String getOwnerId() {

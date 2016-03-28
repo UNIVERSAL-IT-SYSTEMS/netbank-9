@@ -29,14 +29,15 @@ public class TransactionEntity {
     @Column(nullable = false)
     private Long amount;
 
+    public TransactionEntity() {
+        // For JPA
+    }
+
     public TransactionEntity(AccountEntity sourceAccount, AccountEntity destinationAccount, Long amount) {
         date = new Date();
         this.sourceAccount = sourceAccount;
         this.destinationAccount = destinationAccount;
         this.amount = amount;
-    }
-
-    public TransactionEntity() {
     }
 
     public AccountEntity getSourceAccount() {

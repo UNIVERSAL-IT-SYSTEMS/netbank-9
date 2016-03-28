@@ -9,11 +9,11 @@ angular.module('myApp.accountHistory', ['ngRoute'])
                 function (response) {
                     $scope.accountId = $routeParams.id;
                     $scope.transactions = response.data;
-                }, function (response) {
+                }, function () {
                     AlertService.showDanger('Error while loading accounts');
                 });
 
             $scope.getGlyphType = function(sourceId) {
                 return 'glyphicon ' + ($scope.accountId == sourceId ? 'glyphicon-minus' :'glyphicon-plus');
-            }
+            };
         }]);

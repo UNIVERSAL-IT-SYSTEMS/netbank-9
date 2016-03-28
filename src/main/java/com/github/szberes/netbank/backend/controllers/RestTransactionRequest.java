@@ -17,6 +17,10 @@ public class RestTransactionRequest {
     @Min(value = 1, message = "The amount must be greater or equal to 1. ")
     private Long amount;
 
+    public RestTransactionRequest() {
+        // For JSON
+    }
+
     public Long getSourceAccountId() {
         return sourceAccountId;
     }
@@ -39,8 +43,5 @@ public class RestTransactionRequest {
 
     public void setAmount(Long amount) {
         this.amount = amount;
-    }
-
-    public RestTransactionRequest() {
     }
 }
