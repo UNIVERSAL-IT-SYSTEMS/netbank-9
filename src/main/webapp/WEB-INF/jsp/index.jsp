@@ -64,7 +64,7 @@
                            aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{currentUserId}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="/logout">Log out</a>
+                                <a href="" ng-click="logoutWithConfirmation()">Log out</a>
                             </li>
                         </ul>
                     </li>

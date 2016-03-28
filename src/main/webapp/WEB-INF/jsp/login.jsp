@@ -29,7 +29,7 @@
 <div class="container">
     <%
 
-        if (request.getQueryString() != null) {
+        if (request.getParameter("error") != null) {
     %>
     <div class="alert alert-danger" data-dismiss="alert" role="alert">
         <button type="button" class="close" aria-label="Close">
@@ -40,9 +40,6 @@
     <%
         }
     %>
-    <c:if test="${errorInLogin}">
-        <h1>ERROR</h1>
-    </c:if>
     <form name='f' action="login" method='POST' class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputUserName" class="sr-only">Email address</label>

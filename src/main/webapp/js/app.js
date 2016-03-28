@@ -36,8 +36,8 @@ angular.module('myApp', [
             $http.post('backend/accounts/' + sourceAccountId + '/transactions', data, config).then(successHandler, errorHadler);
         }
 
-    }).controller('navBarController', ['$scope', '$location', 'AccountService', 'AlertService', 'UserService',
-        function ($scope, $location, AccountService, AlertService, UserService) {
+    }).controller('navBarController', ['$scope', '$location', '$window', 'AccountService', 'AlertService', 'UserService',
+        function ($scope, $location, $window, AccountService, AlertService, UserService) {
             AccountService.accounts(function (response) {
                 $scope.accounts = response.data;
             }, function (response) {
@@ -50,6 +50,12 @@ angular.module('myApp', [
             });
             $scope.isActive = function (viewLocation) {
                 return viewLocation === $location.path();
+            };
+            $scope.logoutWithConfirmation = function () {
+                var reallyLogOut = confirm("Are you sure?");
+                if (reallyLogOut === true) {
+                    $window.location.href = "logout";
+                }
             };
         }])
     .service('AlertService', function ($rootScope) {
