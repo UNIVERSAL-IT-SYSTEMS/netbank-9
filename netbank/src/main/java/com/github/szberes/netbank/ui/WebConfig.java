@@ -23,7 +23,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
             http.authorizeRequests().antMatchers("/css/**").permitAll()
                     .anyRequest().fullyAuthenticated().and().formLogin()
                     .loginPage("/login").failureUrl("/login?error=true").permitAll()
-                    .and()
+                    .and().csrf().disable()
                     .logout().logoutUrl("/logout").clearAuthentication(true)
             .permitAll();
         }
